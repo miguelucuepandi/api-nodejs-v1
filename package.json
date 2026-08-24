@@ -1,0 +1,23 @@
+{
+  "name": "api-balta-io",
+  "version": "1.0.0",
+  "description": "Uma api feita em node js",
+  "license": "ISC",
+  "author": "miguelucuepandi",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./bin/server.js",
+    "runnodemon": "nodemon ./bin/server.js"
+  },
+  "dependencies": {
+    "body-parser": "^2.3.0",
+    "debug": "^4.4.3",
+    "express": "^5.2.1",
+    "http": "^0.0.1-security",
+    "mongoose": "^9.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
