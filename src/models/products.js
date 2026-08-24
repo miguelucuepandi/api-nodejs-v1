@@ -62,3 +62,8 @@ module.exports = mongoose.model("Product", schema);
         "tags": ["tag1", "tag2"]
     }   
 */
+
+// Explicacao do codigo acima:
+// 1- Importa o módulo mongoose e cria um esquema (schema) para o modelo Product.
+// 2- Define os campos do modelo Product, incluindo title, slug, description, price, active e tags, com suas respectivas validações e tipos de dados.
+// 3- Exporta o modelo Product para ser usado em outros arquivos.   

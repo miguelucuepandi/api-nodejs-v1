@@ -125,3 +125,10 @@ exports.delete = (req, res, nex) => {
 /*
     O metodo find() retorna um array de objetos, enquanto o metodo findOne() retorna apenas um objeto.
 */
+
+// Explicacao do codigo acima:
+// 1- Importa o módulo mongoose e o modelo Product.
+// 2- Define a função get para buscar todos os produtos ativos, retornando apenas os campos title, price e slug.
+// 3- Define a função getBySlug para buscar um produto específico pelo slug, retornando os campos title, description, price, slug e tags.
+// 4- Define a função getByTag para buscar produtos por uma tag específica, retornando os campos title, description, price, slug e tags.
+// 5- Define a função getById para buscar um produto pelo seu ID.

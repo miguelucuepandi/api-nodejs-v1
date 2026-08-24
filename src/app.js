@@ -25,3 +25,13 @@ app.use("/products", productRoute);
 
 module.exports = app;
 
+
+// Explicacao do codigo acima:
+// 1- Importa os módulos necessários: express, body-parser e mongoose.
+// 2- Cria uma instância do aplicativo Express e um roteador.
+// 3- Conecta-se ao banco de dados MongoDB usando o mongoose.
+// 4- Carrega os modelos de dados (neste caso, o modelo Product).
+// 5- Carrega as rotas do aplicativo (indexRoute e productRoute).
+// 6- Configura o middleware body-parser para processar requisições JSON e URL-encoded.
+// 7- Define as rotas do aplicativo, associando os caminhos às rotas carregadas.
+// 8- Exporta o aplicativo para ser usado em outros arquivos (como o servidor). 

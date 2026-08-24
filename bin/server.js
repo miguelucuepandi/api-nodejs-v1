@@ -63,11 +63,10 @@ function onListening() {
 }   
 
 // Explicacao do codigo acima:
-
-// 1. Importa os módulos necessários: http, debug e express.
-// 2. Cria uma instância do aplicativo Express.
-// 3. Define a porta do servidor como 3000.
-// 4. Cria um servidor HTTP usando o aplicativo Express.
-// 5. Cria um roteador Express para gerenciar rotas.
-// 6. Define uma rota GET na raiz ("/") que envia uma resposta JSON com informações sobre a API.
-// 7. Usa o roteador no aplicativo Express para que a rota definida seja acessível. 
+// 1- Importa os módulos necessários: o aplicativo Express, o módulo de depuração e o módulo HTTP.
+// 2- Define a porta em que o servidor irá escutar, normalizando-a para garantir que seja um número válido ou uma string.
+// 3- Cria o servidor HTTP usando o aplicativo Express.
+// 4- Inicia o servidor e define os manipuladores de eventos para lidar com erros e quando o servidor estiver ouvindo.
+// 5- Define a função normalisePort para garantir que a porta seja válida.
+// 6- Define a função onError para lidar com erros específicos do servidor, como problemas de permissão ou porta já em uso.
+// 7- Define a função onListening para registrar quando o servidor estiver ouvindo na porta especificada.   
