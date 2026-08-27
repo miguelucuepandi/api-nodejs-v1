@@ -3,67 +3,53 @@
 const mongoose = require("mongoose");
 const Product = mongoose.model("Product");
 const ValidationContract = require("../validator/fluent-validator");
+const repository = require("../repositories/product-repository");
 
-exports.get = (req, res, nex) => {
-    Product
-    .find({
-        active: true
-    }, "title price slug") // Seleciona apenas os campos especificados
-    .then(data => {
+exports.get = async(req, res, nex) => {
+    try {
+        var data = await repository.get();
         res.status(200).send(data);
-    })
-    .catch(e => {
+    } catch (e) {
         res.status(400).send({
             message: "Falha ao processar sua requisição"
         });
-    });
-};
+    }
+}
 
-exports.getBySlug = (req, res, nex) => {
-    Product
-    .findOne({
-        slug: req.params.slug,
-        active: true
-    }, "title description price slug tags") // Seleciona apenas os campos especificados
-    .then(data => {
+exports.getBySlug = async (req, res, nex) => {
+    try { 
+        var data = await repository.getBySlug(req.params.slug);
         res.status(200).send(data);
-    })
-    .catch(e => {
+    } catch (e) {
         res.status(400).send({
             message: "Falha ao processar sua requisição"
         });
-    });
-};
+    }
+}; 
 
-exports.getByTag = (req, res, nex) => {
-    Product
-    .find({
-        tags: req.params.tag
-    }, "title description price slug tags") // Seleciona apenas os campos especificados
-    .then(data => {
+exports.getById = async (req, res, nex) => {
+    try {
+        var data = await repository.getById(req.params.id);
         res.status(200).send(data);
-    })
-    .catch(e => {
+    } catch (e) {
         res.status(400).send({
             message: "Falha ao processar sua requisição"
         });
-    });
+    }
 };
 
-exports.getById = (req, res, nex) => {
-    Product
-    .findById(req.params.id)
-    .then(data => {
+exports.getByTag = async (req, res, nex) => {
+    try {
+        var data = await repository.getByTag(req.params.tag);
         res.status(200).send(data);
-    })
-    .catch(e => {
+    } catch (e) {
         res.status(400).send({
             message: "Falha ao processar sua requisição"
         });
-    });
+    }
 };
 
-exports.post = (req, res, nex) => {
+exports.post = async (req, res, nex) => {
     let contract = new ValidationContract();
     contract.hasMinLen(req.body.title, 3, "O título deve conter pelo menos 3 caracteres");
     contract.hasMinLen(req.body.slug, 3, "O slug deve conter pelo menos 3 caracteres");
@@ -74,66 +60,45 @@ exports.post = (req, res, nex) => {
         res.status(400).send(contract.errors()).end();
         return;
     }
-
-    
-
-    var product = new Product(req.body);
-    product
-    .save()
-    .then(x => {
-        res.status(201).send({ message: "Produto cadastrado com sucesso!" });
-    })
-    .catch(e => {
-        res.status(400).send({ 
+    try {
+        await repository.create(req.body)
+        res.status(201).send({
+            message: "Produto cadastrado com sucesso!" 
+        });
+    } catch (e) {
+        res.status(400).send({
             message: "Falha ao cadastrar o produto", 
             data: e 
         });
-    });
+    }
 }; 
 
-exports.put = (req, res, nex) => {
-    Product
-    .findByIdAndUpdate(req.params.id, {
-        $set: {
-            title: req.body.title,
-            description: req.body.description,
-            price: req.body.price,
-            slug: req.body.slug
-        }
-    })
-    .then(x => {
+exports.put = async (req, res, nex) => {
+    try {
+        await repository.update(req.params.id, req.body);
         res.status(200).send({
             message: "Produto atualizado com sucesso!" 
         });
-    })
-    .catch(e => {
+    } catch (e) {
         res.status(400).send({
             message: "Falha ao atualizar o produto", 
             data: e 
         });
-    });
+    }
 };
 
-exports.delete = (req, res, nex) => {
-    Product
-    .findByIdAndDelete(req.body.id)
-    .then(x => {
-        // Se 'x' for null, significa que o ID é válido mas não existe no banco
-        if (!x) {
-            return res.status(404).send({
-                message: "Produto não encontrado!"
-            });
-        }
+exports.delete = async (req, res, nex) => {
+    try {
+        await repository.delete(req.body.id);
         res.status(200).send({
             message: "Produto removido com sucesso!" 
         });
-    })
-    .catch(e => {
+    } catch (e) {
         res.status(400).send({
             message: "Falha ao remover o produto", 
             data: e 
         });
-    });
+    }
 };
 
 /*
