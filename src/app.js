@@ -11,16 +11,20 @@ const router = express.Router();
 mongoose.connect("mongodb+srv://miguelucuepandi07_db_user:QWfITnuMeoMKmdzh@cluster0.mt7uesc.mongodb.net/?appName=Cluster0");
 
 // CARREGA OS MODELS
-const Product = require("./models/products");
+const Product = require("./models/product");
+const Customer = require("./models/customer");
+const Order = require("./models/order");
 
 // CARREGA AS ROTAS
 const indexRoute = require("./routes/index-route");
 const productRoute = require("./routes/product-route");
+const customerRoute = require("./routes/customer-route");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/", indexRoute);
+app.use("/customers", customerRoute);
 app.use("/products", productRoute);
 
 module.exports = app;
@@ -35,3 +39,4 @@ module.exports = app;
 // 6- Configura o middleware body-parser para processar requisições JSON e URL-encoded.
 // 7- Define as rotas do aplicativo, associando os caminhos às rotas carregadas.
 // 8- Exporta o aplicativo para ser usado em outros arquivos (como o servidor). 
+
