@@ -3,7 +3,7 @@
 const ValidationContract = require("../validator/fluent-validator");
 const repository = require("../repositories/product-repository");
 
-exports.get = async(req, res, nex) => {
+exports.get = async(req, res, next) => {
     try {
         var data = await repository.get();
         res.status(200).send(data);
@@ -14,7 +14,7 @@ exports.get = async(req, res, nex) => {
     }
 }
 
-exports.getBySlug = async (req, res, nex) => {
+exports.getBySlug = async (req, res, next) => {
     try { 
         var data = await repository.getBySlug(req.params.slug);
         res.status(200).send(data);
@@ -25,7 +25,7 @@ exports.getBySlug = async (req, res, nex) => {
     }
 }; 
 
-exports.getById = async (req, res, nex) => {
+exports.getById = async (req, res, next) => {
     try {
         var data = await repository.getById(req.params.id);
         res.status(200).send(data);
@@ -36,7 +36,7 @@ exports.getById = async (req, res, nex) => {
     }
 };
 
-exports.getByTag = async (req, res, nex) => {
+exports.getByTag = async (req, res, next) => {
     try {
         var data = await repository.getByTag(req.params.tag);
         res.status(200).send(data);
@@ -47,7 +47,7 @@ exports.getByTag = async (req, res, nex) => {
     }
 };
 
-exports.post = async (req, res, nex) => {
+exports.post = async (req, res, next) => {
     let contract = new ValidationContract();
     contract.hasMinLen(req.body.title, 3, "O título deve conter pelo menos 3 caracteres");
     contract.hasMinLen(req.body.slug, 3, "O slug deve conter pelo menos 3 caracteres");
@@ -71,7 +71,7 @@ exports.post = async (req, res, nex) => {
     }
 }; 
 
-exports.put = async (req, res, nex) => {
+exports.put = async (req, res, next) => {
     try {
         await repository.update(req.params.id, req.body);
         res.status(200).send({
@@ -85,7 +85,7 @@ exports.put = async (req, res, nex) => {
     }
 };
 
-exports.delete = async (req, res, nex) => {
+exports.delete = async (req, res, next) => {
     try {
         await repository.delete(req.body.id);
         res.status(200).send({

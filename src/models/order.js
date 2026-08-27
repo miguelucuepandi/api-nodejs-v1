@@ -12,8 +12,13 @@ const schema = new Schema({
         type: String,
         required: true
     },
+    // createDate: {
+    //     type: String,
+    //     required: true,
+    //     default: Date.now
+    // },
     createDate: {
-        type: String,
+        type: Date,
         required: true,
         default: Date.now
     },

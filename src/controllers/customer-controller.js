@@ -3,7 +3,7 @@
 const ValidationContract = require("../validator/fluent-validator");
 const repository = require("../repositories/customer-repository");
 
-exports.post = async (req, res, nex) => {
+exports.post = async (req, res, next) => {
     let contract = new ValidationContract();
     contract.hasMinLen(req.body.name, 3, "O nome deve conter pelo menos 3 caracteres");
     contract.isEmail(req.body.email, "O email é inválido");
