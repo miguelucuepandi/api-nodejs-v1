@@ -3,12 +3,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
+const config = require("./config");
 const app = express();
 const router = express.Router();
 
 // CONEXÃO COM O BANCO DE DADOS
-mongoose.connect("mongodb+srv://miguelucuepandi07_db_user:QWfITnuMeoMKmdzh@cluster0.mt7uesc.mongodb.net/?appName=Cluster0");
+mongoose.connect(config.connectionString); 
 
 // CARREGA OS MODELS
 const Product = require("./models/product");
