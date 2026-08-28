@@ -36,5 +36,5 @@ exports.post = async (req, res, next) => {
             message: "Falha ao cadastrar o cliente", 
             data: e 
         });
-    }
+}           
 }; 
