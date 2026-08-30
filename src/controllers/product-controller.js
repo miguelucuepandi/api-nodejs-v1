@@ -1,9 +1,10 @@
-"use strict"
+"use strict";
 
+const blobService = require("../services/blob-service");
 const ValidationContract = require("../validator/fluent-validator");
 const repository = require("../repositories/product-repository");
 
-exports.get = async(req, res, next) => {
+exports.get = async (req, res, next) => {
     try {
         var data = await repository.get();
         res.status(200).send(data);
@@ -12,7 +13,7 @@ exports.get = async(req, res, next) => {
             message: "Falha ao processar sua requisição"
         });
     }
-}
+};
 
 exports.getBySlug = async (req, res, next) => {
     try { 
@@ -58,13 +59,30 @@ exports.post = async (req, res, next) => {
         res.status(400).send(contract.errors()).end();
         return;
     }
+
     try {
-        await repository.create(req.body)
+        let imageUrl = "";
+
+        // Se uma imagem em base64 for enviada, faz o upload para o Cloudinary
+        if (req.body.image) {
+            imageUrl = await blobService.uploadImage(req.body.image);
+        }
+
+        await repository.create({
+            title: req.body.title,
+            slug: req.body.slug,
+            description: req.body.description,
+            price: req.body.price,
+            active: true,
+            tags: req.body.tags,
+            image: imageUrl
+        });
+
         res.status(201).send({
             message: "Produto cadastrado com sucesso!" 
         });
     } catch (e) {
-        res.status(400).send({
+        res.status(500).send({
             message: "Falha ao cadastrar o produto", 
             data: e 
         });
@@ -98,14 +116,3 @@ exports.delete = async (req, res, next) => {
         });
     }
 };
-
-/*
-    O metodo find() retorna um array de objetos, enquanto o metodo findOne() retorna apenas um objeto.
-*/
-
-// Explicacao do codigo acima:
-// 1- Importa o módulo mongoose e o modelo Product.
-// 2- Define a função get para buscar todos os produtos ativos, retornando apenas os campos title, price e slug.
-// 3- Define a função getBySlug para buscar um produto específico pelo slug, retornando os campos title, description, price, slug e tags.
-// 4- Define a função getByTag para buscar produtos por uma tag específica, retornando os campos title, description, price, slug e tags.
-// 5- Define a função getById para buscar um produto pelo seu ID.

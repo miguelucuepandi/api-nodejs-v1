@@ -5,5 +5,7 @@ global.EMAIL = process.env.EMAIL || 'miguelucuepandi07@gmail.com';
 module.exports = {
     connectionString: process.env.CONNECTION_STRING,
     sendgridKey: process.env.SENDGRID_KEY,
-    containerConnectionString: process.env.CONTAINER_CONNECTION_STRING || 'TBD'
+    cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
+    cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET
 };
