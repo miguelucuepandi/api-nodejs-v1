@@ -5,7 +5,7 @@
   "license": "ISC",
   "author": "miguelucuepandi",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "./bin/server.js",
   "scripts": {
     "start": "node ./bin/server.js",
     "runnodemon": "nodemon ./bin/server.js"
@@ -24,3 +24,10 @@
     "nodemon": "^3.1.14"
   }
 }
+
+
+
+
+
+
+
